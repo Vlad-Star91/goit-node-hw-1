@@ -1,5 +1,3 @@
-// const yargs = require('yargs');
-// const { hideBin } = require('yargs/helpers');
 const { program } = require('commander');
 program
   .option('-a, --action <type>', 'contacts action')
@@ -19,6 +17,9 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       break;
     case 'getById':
       const contact = await contactOperations.getContactById(id);
+      if (!contact) {
+        throw new Error('Contact not found');
+      }
       console.log(contact);
       break;
     case 'addContact':
@@ -27,6 +28,9 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       break;
     case 'removeContact':
       const removeContact = await contactOperations.removeContact(id);
+      if (!removeContact) {
+        throw new Error('Contact not found');
+      }
       console.log(removeContact);
       break;
     default:
@@ -34,20 +38,4 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       break;
   }
 };
-
-// const arr = hideBin(process.argv);
-// const { argv } = yargs(arr);
-
 invokeAction(argv);
-// invokeAction({ action: 'list' });
-// invokeAction({ action: 'getById', id: '8' });
-// invokeAction({
-//   action: 'addContact',
-//   name: 'Vladyslav',
-//   email: 'sdfsdf@mail.com',
-//   phone: '2343242',
-// });
-// invokeAction({
-//   action: 'removeContact',
-//   id: 'a8ba498e-26a2-4b86-9020-7f7b6199673d',
-// });

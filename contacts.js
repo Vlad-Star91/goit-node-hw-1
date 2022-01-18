@@ -5,13 +5,12 @@ const path = require('path');
 const { stringify } = require('querystring');
 const { v4 } = require('uuid');
 
-// const filePath = `${__dirname}\contacts.json`;
 const filePath = path.join(__dirname, './db/contacts.json');
 
 const listContacts = async () => {
   const data = await fs.readFile(filePath);
   const allContacts = JSON.parse(data);
-  // console.log(allContacts);
+  console.log(allContacts);
   return allContacts;
 };
 const getContactById = async id => {
